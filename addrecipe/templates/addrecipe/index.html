@@ -1,0 +1,9 @@
+{% load staticfiles %}
+
+<form action="{% url 'addrecipe:add_recipe' %}" method="post">
+    {% csrf_token %}
+    {{ recipeform }}<br/>
+    {{ ingredientform }}<br/>
+    {{ instructionform }}
+    <input type="submit" value="Add" />
+</form>
