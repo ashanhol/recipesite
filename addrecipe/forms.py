@@ -37,7 +37,11 @@ class AddIngredientForm(forms.ModelForm):
     amount =  forms.FloatField(999.9) 
     unit = forms.CharField(max_length=10, widget=forms.Select(choices= UNITS))
     
+   # def __name__(self):
+    #    self.__class__.__name__ = "AddIngredientForm"
+     #   return self.__class__.__name__
     
+
     class Meta:
         model = Ingredient
         fields = ['ingredient_text', 'amount', 'unit']

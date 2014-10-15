@@ -1,9 +1,31 @@
 {% load staticfiles %}
 
+<h3>Add Recipe</h3>
+
 <form action="{% url 'addrecipe:add_recipe' %}" method="post">
     {% csrf_token %}
     {{ recipeform }}<br/>
-    {{ ingredientform }}<br/>
-    {{ instructionform }}
+    
+    {{ ingrformset.management_form }}
+    <div class = 'table'>
+    <table class = 'no_error'>
+        {% for form in ingrformset %}
+            {{ form.as_table }}<br/>
+        {% endfor %}
+    </table>
+    </div>
+    
+    <input type="button" value="Add More" id="add_more_ing">
+    <script type="text/javascript" src="{{ STATIC_URL }} /static/jquery-2.1.1.min.js">
+        $('#add_more_ing').click(function() {
+            cloneMore('div.table:last', 'service');
+        });
+    </script>
+    
+    {% for form in instrucformset %}
+        {{ form }} <br/>
+    {% endfor %}
+    {{ instrucformset.management_form }}
+    
     <input type="submit" value="Add" />
 </form>
