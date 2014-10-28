@@ -1,7 +1,62 @@
 {% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href="{% static 'addrecipe/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'addrecipe/main.css' %}">
+</head>
+<body>
+    <br/>
 
-<form method="post">
-    {% csrf_token %}
-    <p>Thank You! Click below to submit another. </p>
-    <input type="submit" value="Submit" />
-</form>
+    <!-- Navigation Bar -->
+    <div class="nav">
+          <div class="container">
+            <div class ="row">
+                <div class= "col-md-12">
+                    <ul class = "pull-left">
+                      <li><a href="#">Home</a></li>
+                      <li><a href="#">About</a></li>
+                    </ul>
+                    <ul class = "pull-right">
+                      <li><a href="#">Add</a></li>
+                      <li><a href="#">Search</a></li>
+                      <li><a href="#">Help</a></li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+    </div>
+    
+    <!-- Header -->
+    <div class="formsetup">
+        <div class= "container">
+            <div class ="row">
+                <div class= "col-md-12" align = "center">
+                     <img src="{% static 'addrecipe/images/kale.png' %}" alt="Kale" style="width:75px;height:75px">
+                    CoopFood
+                </div>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <center><h3><p><u>Thank You! Click below to submit another. </u></p></h3>
+                    <br/>
+                <input type="submit" value="Go Back" /></center>
+            </form>
+            <br />
+            <hr/>
+            <br />
+            <footer>
+                <small>
+                    <center>
+                        <p>Last Updated 10/27/2014</p>
+                        <p>For assistance please contact <a href="mailto:admin@coopfood.com">admin@coopfood.com</a></p>
+                    </center>
+                </small>
+            </footer>
+        </div>
+    </div>
+
+</body>
+</html>

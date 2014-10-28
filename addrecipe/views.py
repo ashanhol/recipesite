@@ -20,19 +20,17 @@ def thank_view(request):
 
 def add_recipe(request):
     # if this is a POST request we need to process the form data
-    ingredientformset = formset_factory(AddIngredientForm, extra = 3, can_delete = True)
-    instructionformset = formset_factory(AddInstructionForm, extra = 2, can_delete = True)
+    ingredientformset = formset_factory(AddIngredientForm, extra = 1, can_delete = True)
+    instructionformset = formset_factory(AddInstructionForm, extra = 1, can_delete = True)
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         recipeform = AddRecipeForm(request.POST)
         ingrformset = ingredientformset(request.POST, request.FILES, prefix = 'ingredients')
         instrucformset = instructionformset(request.POST, request.FILES, prefix = 'instructions')
-        #ingredientform = AddIngredientForm(request.POST)
-        #instructionform = AddInstructionForm(request.POST)
+        
         # check whether it's valid:
         if recipeform.is_valid() and ingrformset.is_valid() and instrucformset.is_valid():
-            # Prepare the ingredient model, but don't commit it to the database
-            # just yet.
+            # Prepare the ingredient and instruction models, but don't commit it to the database just yet.
             # Add the recipe ForeignKey by saving the secondary form we setup
             savedrecipe = recipeform.save()
             
@@ -45,26 +43,14 @@ def add_recipe(request):
                 instruction = instrucform.save(commit = False)
                 instruction.recipe = savedrecipe
                 instruction.save()
-            
-            #instruction = instructionform.save(commit=False)
-            
-           
-            #ingredient.recipe = savedrecipe
-            #instruction.recipe = savedrecipe
-            
-            # Save the main object and continue
-            #ingredient.save()
-            #instruction.save()
-            
+
             # redirect to a new URL:
             return HttpResponseRedirect('thank/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         recipeform = AddRecipeForm()
-        #ingredientform = AddIngredientForm()
         ingrformset = ingredientformset(prefix = 'ingredients')
-        #instructionform = AddInstructionForm()
         instrucformset = instructionformset(prefix = 'instructions')
 
     return render(request, 'addrecipe/index.html', {'recipeform': recipeform, 'ingrformset' : ingrformset, 'instrucformset' : instrucformset })

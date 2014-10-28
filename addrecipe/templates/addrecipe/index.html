@@ -1,31 +1,124 @@
 {% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-<h3>Add Recipe</h3>
+<link rel="stylesheet" href="{% static 'addrecipe/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+<script type="text/javascript" src="{% static 'addrecipe/jquery-2.1.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'addrecipe/bootstrap-3.2.0-dist/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'addrecipe/jquery.formset.js' %}"></script>
+<link rel="stylesheet" href="{% static 'addrecipe/main.css' %}">
 
-<form action="{% url 'addrecipe:add_recipe' %}" method="post">
-    {% csrf_token %}
-    {{ recipeform }}<br/>
+
+</head>
+<body>
+
+<br/>
+
+<!-- Navigation Bar -->
+<div class="nav">
+      <div class="container">
+        <div class ="row">
+            <div class= "col-md-12">
+                <ul class = "pull-left">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">About</a></li>
+                </ul>
+                <ul class = "pull-right">
+                  <li><a href="#">Add</a></li>
+                  <li><a href="#">Search</a></li>
+                  <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+      </div>
+</div>
+
+<!-- Header -->
+<div class="formsetup">
+    <div class= "container">
+        <div class ="row">
+            <div class= "col-md-12" align = "center">
+                 <img src="{% static 'addrecipe/images/kale.png' %}" alt="Kale" style="width:75px;height:75px">
+                CoopFood
+            </div>
+        </div>
+        <form action="{% url 'addrecipe:add_recipe' %}" method="post">
+            {% csrf_token %}
+        
+            <div class = "row">
+                <div class = "col-md-4">
+                    <h3>Add Recipe</h3>
+                        {{ recipeform }}
+                    <!--</form>-->
+                </div>
+            </div>
+            
+            <div class ="row">
+                <div class = "col-md-6">
+                    <!--<form action="{% url 'addrecipe:add_recipe' %}" method="post">
+                        {% csrf_token %}-->
+                        <div class = 'table'>
+                            <table class = 'ing'>
+                                {% for form in ingrformset %}
+                                    {{ form }}<br/>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        {{ ingrformset.management_form }}
+                   <!-- </form>-->
+                
+                
+                     <!-- Add/Remove buttons -->
+                    <script type = "text/javascript">
+                        $(function() {
+                            $('div .table .ing').formset();
+                        })
+                    </script>
+                </div>
+                
+                <div class = "col-md-6">
+                    <!--<form action="{% url 'addrecipe:add_recipe' %}" method="post">
+                        {% csrf_token %}-->
+                        
+                        <div class = 'table'>
+                            <table class = 'inst'>
+                                {% for form in instrucformset %}
+                                    {{ form }} <br/>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        {{ instrucformset.management_form }}
     
-    {{ ingrformset.management_form }}
-    <div class = 'table'>
-    <table class = 'no_error'>
-        {% for form in ingrformset %}
-            {{ form.as_table }}<br/>
-        {% endfor %}
-    </table>
+                    
+                    
+                    <!-- Add/Remove buttons -->
+                    <script type = "text/javascript">
+                        $(function() {
+                            $('div .table .inst').formset();
+                        })
+                    </script>
+                </div>
+            </div>
+        <div class ="row">
+            <button type="submit" class="submit button">Submit</button>
+        </div>
+        </form>
+        <br/>
+        <hr>
+        <br/>
+        <footer>
+            <small>
+                <center>
+                    <p>Last Updated 10/27/2014</p>
+                    <p>For assistance please contact <a href="mailto:admin@coopfood.com">admin@coopfood.com</a></p>
+                </center>
+            </small>
+        </footer>
     </div>
-    
-    <input type="button" value="Add More" id="add_more_ing">
-    <script type="text/javascript" src="{{ STATIC_URL }} /static/jquery-2.1.1.min.js">
-        $('#add_more_ing').click(function() {
-            cloneMore('div.table:last', 'service');
-        });
-    </script>
-    
-    {% for form in instrucformset %}
-        {{ form }} <br/>
-    {% endfor %}
-    {{ instrucformset.management_form }}
-    
-    <input type="submit" value="Add" />
-</form>
+</div>
+
+
+
+</body>
+</html>
