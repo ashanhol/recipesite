@@ -1,0 +1,77 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<link rel="stylesheet" href="{% static 'addrecipe/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'addrecipe/main.css' %}">
+<script type="text/javascript" src="{% static 'addrecipe/bootstrap-3.2.0-dist/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'addrecipe/jquery.formset.js' %}"></script>
+<script type="text/javascript" src="{% static 'search/main.js' %}"></script>
+
+
+</head>
+<body>
+    <br/>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+      <div class="navbar-header">
+            <a class="navbar-brand" href="#">CoopFood</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                  <li"><a href="{% url 'addrecipe:about' %}">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                  <li><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
+                  <li class = "active"><a href="#">Search</a></li>
+                  <li><a href="#">Help</a></li>
+            </ul>
+      </div>
+  </div>
+</nav>
+    
+    <!-- Header -->
+    <div class="formsetup">
+        <div class= "container">
+            <div class ="row">
+                <div class= "col-md-12" align = "center">
+                     <img src="{% static 'addrecipe/images/kale.png' %}" alt="Kale" style="width:75px;height:75px">
+                    CoopFood
+                </div>
+            </div>
+            
+            <form action="{% url 'search:search' %}"  method="post" id="post-form">
+                {% csrf_token %}
+                <div class = "row">
+                    <div class = "col-md-5">
+                      <div class="form-group">
+                        <h3>Search</h3>
+                            {{ searchform }}
+                      </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+                
+                <br/>
+                
+            <br />
+            <hr/>
+            <br />
+            <footer>
+                <small>
+                    <center>
+                        <p>Last Updated 11/07/2014</p>
+                        <p>For assistance please contact <a href="mailto:admin@coopfood.com">admin@coopfood.com</a></p>
+                    </center>
+                </small>
+            </footer>
+        </div>
+    </div>
+
+</body>
+</html>

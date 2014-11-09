@@ -1,0 +1,166 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="stylesheet" href="{% static 'addrecipe/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+<script type="text/javascript" src="{% static 'addrecipe/jquery-2.1.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'addrecipe/bootstrap-3.2.0-dist/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'addrecipe/jquery.formset.js' %}"></script>
+<link rel="stylesheet" href="{% static 'addrecipe/main.css' %}">
+
+
+</head>
+<body>
+
+<br/>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+      <div class="navbar-header">
+            <a class="navbar-brand" href="#">CoopFood</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                  <li ><a href="{% url 'addrecipe:about' %}">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                  <li class="active"><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
+                  <li><a href="#">Search</a></li>
+                  <li><a href="#">Help</a></li>
+            </ul>
+      </div>
+  </div>
+</nav>
+
+<!-- Navigation Bar 
+<div class="nav">
+      <div class="container">
+        <div class ="row">
+            <div class= "col-md-12">
+                <ul class = "pull-left">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="{% url 'addrecipe:about' %}">About</a></li>
+                </ul>
+                <ul class = "pull-right">
+                  <li><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
+                  <li><a href="#">Search</a></li>
+                  <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+      </div>
+</div>-->
+
+<!-- Header -->
+<div class="formsetup">
+    <div class= "container">
+        <div class ="row">
+            <div class= "col-md-12" align = "center">
+                 <img src="{% static 'addrecipe/images/kale.png' %}" alt="Kale" style="width:75px;height:75px">
+                CoopFood
+            </div>
+        </div>
+        <form action="{% url 'addrecipe:recipe_edit' recipe.id %}"  method="post">
+            {% csrf_token %}
+        
+            <div class = "row">
+                <div class = "col-md-4">
+                  <div class="form-group">
+                    <h3>Edit Recipe</h3>
+                        {{ recipeform }}
+                  </div>
+                </div>
+            </div>
+            
+            <div class ="row">
+                <div class = "col-md-6">
+                    <div class="form-group">
+                        <div id="ingredientform" class = 'table'>
+                            <table class = 'ing'>
+                                {% for form in ingrformset %}
+                                    {{ form.as_p }} <br />
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div id ="extraingrform" class = 'table'>
+                            <table class = 'extraing'>
+                                {% for form in extra_ingredients %}
+                                    {{ form }} <br />
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                        {{ ingrformset.management_form }}
+                        {{ extra_ingredients.management_form }}
+                
+                     <!-- Add/Remove buttons -->
+                    <script type = "text/javascript">
+                        $(function() {
+                            $('#extraingrform table').formset({
+                              prefix: '{{ extra_ingredients.prefix }}',
+                              formCssClass: 'dynamic-ingrformset',
+                              addText: 'Add Ingredient',
+                              deleteText: 'Delete Ingredient',
+                              });
+                            })
+                    </script>
+                </div>
+                
+                <div class = "col-md-6">
+                        <div id ="instructionform" class = 'table'>
+                            <table class = 'inst'>
+                                {% for form in instrucformset %}
+                                    {{ form.as_p }} <br />
+                                {% endfor %}
+                            </table>
+                        </div>
+                         <div id ="extrainstrform" class = 'table'>
+                            <table class = 'extrainst'>
+                                {% for form in extra_instructions %}
+                                    {{ form }} <br />
+                                {% endfor %}
+                            </table>
+                        </div>
+                        {{ instrucformset.management_form }}
+                        {{ extra_instructions.management_form }}
+    
+                    <!-- Add/Remove buttons -->
+                    <script type = "text/javascript">
+                        $(function() {
+                            $('#extrainstrform table').formset({
+                              prefix: '{{ extra_instructions.prefix }}',
+                              formCssClass: 'dynamic-instrucformset',
+                              addText: 'Add Instruction',
+                              deleteText: 'Delete Instruction',
+
+                              });
+                            })
+                    </script>
+                </div>
+            </div>
+        <div class ="row">
+            <div class = "col-md-6">
+            <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+        </form>
+        <br/>
+        <hr>
+        <br/>
+        <footer>
+            <small>
+                <center>
+                    <p>Last Updated 11/01/2014</p>
+                    <p>For assistance please contact <a href="mailto:admin@coopfood.com">admin@coopfood.com</a></p>
+                </center>
+            </small>
+        </footer>
+    </div>
+</div>
+
+
+
+</body>
+</html>
