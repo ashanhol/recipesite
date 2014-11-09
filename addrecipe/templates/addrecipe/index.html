@@ -14,25 +14,43 @@
 <body>
 
 <br/>
-
 <!-- Navigation Bar -->
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+      <div class="navbar-header">
+            <a class="navbar-brand" href="#">CoopFood</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                  <li ><a href="{% url 'addrecipe:about' %}">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                  <li class="active"><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
+                  <li><a href="#">Search</a></li>
+                  <li><a href="#">Help</a></li>
+            </ul>
+      </div>
+  </div>
+</nav>
+<!--
 <div class="nav">
       <div class="container">
         <div class ="row">
             <div class= "col-md-12">
                 <ul class = "pull-left">
                   <li><a href="#">Home</a></li>
-                  <li><a href="#">About</a></li>
+                  <li><a href="{% url 'addrecipe:about' %}">About</a></li>
                 </ul>
                 <ul class = "pull-right">
-                  <li><a href="#">Add</a></li>
+                  <li><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
                   <li><a href="#">Search</a></li>
                   <li><a href="#">Help</a></li>
                 </ul>
             </div>
         </div>
       </div>
-</div>
+</div>-->
 
 <!-- Header -->
 <div class="formsetup">
@@ -43,65 +61,72 @@
                 CoopFood
             </div>
         </div>
-        <form action="{% url 'addrecipe:add_recipe' %}" method="post">
+        <form action="{% url 'addrecipe:add_recipe' %}"  method="post">
             {% csrf_token %}
         
             <div class = "row">
-                <div class = "col-md-4">
+                <div class = "col-md-5">
+                  <div class="form-group">
                     <h3>Add Recipe</h3>
                         {{ recipeform }}
-                    <!--</form>-->
+                  </div>
                 </div>
             </div>
             
             <div class ="row">
                 <div class = "col-md-6">
-                    <!--<form action="{% url 'addrecipe:add_recipe' %}" method="post">
-                        {% csrf_token %}-->
-                        <div class = 'table'>
+                    <div class="form-group">
+                        <div id="ingredientform" class = 'table'>
                             <table class = 'ing'>
                                 {% for form in ingrformset %}
-                                    {{ form }}<br/>
+                                    {{ form }} <br />
                                 {% endfor %}
                             </table>
                         </div>
-                        {{ ingrformset.management_form }}
-                   <!-- </form>-->
-                
+                    </div>
+                        {{ ingrformset.management_form }}                
                 
                      <!-- Add/Remove buttons -->
                     <script type = "text/javascript">
                         $(function() {
-                            $('div .table .ing').formset();
-                        })
+                            $('#ingredientform table').formset({
+                              prefix: '{{ ingrformset.prefix }}',
+                              formCssClass: 'dynamic-ingrformset',
+                              addText: 'Add Ingredient',
+                              deleteText: 'Delete Ingredient',
+                              
+                              });
+                            })
                     </script>
                 </div>
                 
                 <div class = "col-md-6">
-                    <!--<form action="{% url 'addrecipe:add_recipe' %}" method="post">
-                        {% csrf_token %}-->
-                        
-                        <div class = 'table'>
+                        <div id ="instructionform" class = 'table'>
                             <table class = 'inst'>
                                 {% for form in instrucformset %}
-                                    {{ form }} <br/>
+                                    {{ form }} <br />
                                 {% endfor %}
                             </table>
                         </div>
                         {{ instrucformset.management_form }}
     
-                    
-                    
                     <!-- Add/Remove buttons -->
                     <script type = "text/javascript">
                         $(function() {
-                            $('div .table .inst').formset();
-                        })
+                            $('#instructionform table').formset({
+                              prefix: '{{ instrucformset.prefix }}',
+                              formCssClass: 'dynamic-instrucformset',
+                              addText: 'Add Instruction',
+                              deleteText: 'Delete Instruction',
+                              });
+                            })
                     </script>
                 </div>
             </div>
         <div class ="row">
-            <button type="submit" class="submit button">Submit</button>
+            <div class = "col-md-6">
+            <button type="submit" class="btn btn-default">Submit</button>
+            </div>
         </div>
         </form>
         <br/>
@@ -110,7 +135,7 @@
         <footer>
             <small>
                 <center>
-                    <p>Last Updated 10/27/2014</p>
+                    <p>Last Updated 11/01/2014</p>
                     <p>For assistance please contact <a href="mailto:admin@coopfood.com">admin@coopfood.com</a></p>
                 </center>
             </small>

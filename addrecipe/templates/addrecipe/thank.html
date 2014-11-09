@@ -5,29 +5,49 @@
     
     <link rel="stylesheet" href="{% static 'addrecipe/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'addrecipe/main.css' %}">
+    <link rel="stylesheet" href="{% static 'addrecipe/recipeview.css' %}">
+
 </head>
 <body>
     <br/>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+      <div class="navbar-header">
+            <a class="navbar-brand" href="#">CoopFood</a>
+      </div>
 
-    <!-- Navigation Bar -->
-    <div class="nav">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                  <li ><a href="{% url 'addrecipe:about' %}">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                  <li class="active"><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
+                  <li><a href="#">Search</a></li>
+                  <li><a href="#">Help</a></li>
+            </ul>
+      </div>
+  </div>
+</nav>
+
+<!--    <div class="nav">
           <div class="container">
             <div class ="row">
                 <div class= "col-md-12">
                     <ul class = "pull-left">
                       <li><a href="#">Home</a></li>
-                      <li><a href="#">About</a></li>
+                      <li><a href="{% url 'addrecipe:about' %}">About</a></li>
                     </ul>
                     <ul class = "pull-right">
-                      <li><a href="#">Add</a></li>
+                      <li><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
                       <li><a href="#">Search</a></li>
                       <li><a href="#">Help</a></li>
                     </ul>
                 </div>
             </div>
           </div>
-    </div>
-    
+    </div> -->
+
     <!-- Header -->
     <div class="formsetup">
         <div class= "container">
@@ -37,20 +57,56 @@
                     CoopFood
                 </div>
             </div>
-
-            <form method="post">
+            
+            <div class ="row">
+                
+            <form action="{% url 'addrecipe:thank' recipe.id %}" method="post">
                 {% csrf_token %}
-                <center><h3><p><u>Thank You! Click below to submit another. </u></p></h3>
-                    <br/>
-                <input type="submit" value="Go Back" /></center>
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                
+                <center><h3><p><u>Thank You! Click below to submit another. </u></p></h3></center>
+                <div class = "recipe">
+                    <div class = "row">
+                        <div class= "col-md-11">
+                            {{ recipe.recipe_name }}
+                        </div>
+                        <div class = "col-md-1">
+                            <a class="btn btn-default" href="{% url 'addrecipe:recipe_edit' recipe.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class= "col-md-4">
+                            <h4>Ingredients</h4><p>
+                            {% for ingredient in recipe.ingredient_set.all %}
+                                {{ forloop.counter }}.
+                                {{ ingredient.ingredient_text }}:
+                                {{ ingredient.amount }}
+                                {{ ingredient.get_unit_display }}<br />
+                            {% endfor %}
+                            </p>
+                        </div>
+                        <div class= "col-md-4">
+                            <h4>Instructions</h4><p> 
+                            {% for instruction in recipe.instruction_set.all %}
+                                {{ forloop.counter }}.
+                                {{ instruction.instruction_text }}<br />
+                            {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <br /> <br />
+                <center><input class="btn btn-default" type="submit" value="Go Back" /></center>
             </form>
+            </div>
             <br />
             <hr/>
             <br />
             <footer>
                 <small>
                     <center>
-                        <p>Last Updated 10/27/2014</p>
+                        <p>Last Updated 11/02/2014</p>
                         <p>For assistance please contact <a href="mailto:admin@coopfood.com">admin@coopfood.com</a></p>
                     </center>
                 </small>

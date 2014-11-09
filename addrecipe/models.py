@@ -20,6 +20,11 @@ UNITS = (
 # Create your models here.
 class Recipe(models.Model):
     recipe_name = models.CharField(max_length=100)
+    vegetarian = models.BooleanField(default = False)
+    vegan = models.BooleanField(default = False)
+    gluten_free = models.BooleanField(default = False)
+    dairy_free = models.BooleanField(default = False)
+    soy_free = models.BooleanField(default = False)
     def __str__(self):
         return self.recipe_name
 
@@ -27,7 +32,7 @@ class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe)
     ingredient_text = models.CharField(max_length=100)
     amount =  models.FloatField(default = 999.9)
-    unit = models.CharField(max_length=10, choices=UNITS)  #cups/quarts/tbsp etc. still need to decide about objects
+    unit = models.CharField(max_length=10, choices=UNITS)  #cups/quarts/tbsp etc.
     def __str__(self):
         return self.ingredient_text
 
