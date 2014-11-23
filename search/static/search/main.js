@@ -56,3 +56,69 @@ $('#post-form').on('submit', function(event){
     console.log("form submitted!")  // sanity check
     create_post();
 });
+
+// AJAX for posting
+function create_post() {
+    console.log("create post is working!") // sanity check
+    $.ajax({
+        url : "/search/", // the endpoint
+        type : "POST", // http method
+        data : { the_post : $('#search').val(), vegetarian : $('#vegetarian').is(':checked') , vegan : $('#vegan').is(':checked'), glutenfree : $('#gluten-free').is(':checked'), soyfree : $('#soy-free').is(':checked'), dairyfree : $('#dairy-free').is(':checked'), searchtype : $('#searchtype').val()}, // data sent with the post request
+
+        // handle a successful response
+        success : function(json) {
+            $('#search').val(''); // remove the value from the input
+            console.log(json); // log the returned json to the console
+            var index, index2;
+            
+            //This formats the results with the HTML for viewing the recipe
+            for (index = 0; index < json.recipe_names.length; ++index) {
+                $("#recipe").append("<div class = \"row\" id=\"first-row"+index+"\">");
+                $("#first-row"+index).append("<div class= \"col-md-11\" id= \"inside-recipe"+index+"\">");
+                
+                $("#inside-recipe"+index).append(json.recipe_names[index]+"<br/>");
+                
+                $("#first-row"+index).append("</div");
+                $("#recipe").append("</div>");
+
+                $("#recipe").append("<div class = \"row\" id= \"second-row"+index+"\">");
+                $("#second-row"+index).append("<div class= \"col-md-4\" id= \"inside-ingredient"+index+"\">");
+                
+                $("#inside-ingredient"+index).append("<h4>Ingredients</h4>");
+                for (index2 = 0; index2 < json.recipe_ing[index].length; ++index2) {
+                    $("#inside-ingredient"+index).append(json.recipe_ing[index][index2]+"<br/>");
+                }
+                $("#inside-ingredient"+index).append("<p/>");
+
+                $("#second-row"+index).append("</div><div class= \"col-md-4\" id= \"inside-instruction"+index+"\">");
+                
+                $("#inside-instruction"+index).append("<h4>Instructions</h4>");
+                for (index2 = 0; index2 < json.recipe_inst[index].length; ++index2) {
+                    $("#inside-instruction"+index).append(json.recipe_inst[index][index2]+"<br/>");
+                }
+                
+                $("#second-row"+index).append("</div>");
+                $("#recipe").append("</div>");
+
+
+
+            }
+            //show/hides a recipe
+            $( "[id^='first-row']" ).click(function() {
+                var index = this.id.slice(9);
+                var secondrow= "second-row".concat(index);
+                $( '[id="'+secondrow+'"]' ).slideToggle();
+            });
+            
+            //console.log("success"); // another sanity check
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+};
+

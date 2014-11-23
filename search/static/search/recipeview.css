@@ -1,0 +1,33 @@
+
+
+.formsetup .container #recipe{
+    background-color: #FFE270;
+    padding: 14px 10px;
+}
+
+.formsetup .container #recipe .col-md-11{
+    font-size: 20px;  
+    font-weight: bold;
+
+}
+
+.formsetup .container #recipe .col-md-4{
+    background-color: #FFFFFF;
+    font-size: 15px;  
+    width: 300px;
+    height: 200px;
+    margin: 20px;
+    padding: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #000000;
+    overflow: scroll;
+}
+.formsetup .container #recipe [id^="first-row"]:hover{
+    background-color: #ffd670;
+}
+.formsetup .container #recipe [id^="second-row"]:hover{
+    background-color: #ffd670;
+    
+    
+}
