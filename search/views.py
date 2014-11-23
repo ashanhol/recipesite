@@ -36,10 +36,10 @@ def search(request):
         
         for term in searchterm:
             q = None
-            #if request.POST.get('searchtype') == 'NAME':
-            q = Q(recipe_name__icontains=term)
-            #elif request.POST.get('searchtype') == 'INGR':
-            #    q = Q(ingredient_text__icontains=term)
+            if request.POST.get('searchtype') == 'NAME':
+                q = Q(recipe_name__icontains=term)
+            elif request.POST.get('searchtype') == 'INGR':
+                q = Q(ingredient__ingredient_text__icontains=term)
 
             
             #ORing search terms together 
@@ -49,11 +49,12 @@ def search(request):
                 or_query = or_query | q
             
             #Get QuerySet based on restrictions and search terms
-            #results = None
-            #if request.POST.get('searchtype') == 'NAME':
-            results = Recipe.objects.all().filter(or_query)
-            #elif request.POST.get('searchtype') == 'INGR':
-            #    results = Ingredient.objects.all().filter(or_query)
+            results = None
+            if request.POST.get('searchtype') == 'NAME':
+                results = Recipe.objects.all().filter(or_query)
+            elif request.POST.get('searchtype') == 'INGR':
+                results = Recipe.objects.filter(or_query)
+             #   results = Ingredient.objects.all().filter(or_query)
 
 
             
