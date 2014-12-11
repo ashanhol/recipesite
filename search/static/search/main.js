@@ -69,6 +69,7 @@ function create_post() {
         success : function(json) {
             $('#search').val(''); // remove the value from the input
             console.log(json); // log the returned json to the console
+            $("#recipe").html(''); //clear the previous thing searched 
             var index, index2;
             
             //This formats the results with the HTML for viewing the recipe
@@ -78,7 +79,14 @@ function create_post() {
                 
                 $("#inside-recipe"+index).append(json.recipe_names[index]+"<br/>");
                 
-                $("#first-row"+index).append("</div");
+                $("#first-row"+index).append("</div>");
+                $("#first-row"+index).append("<div class= \"col-md-1\" id= \"recipe-glyph"+index+"\">");
+
+                //add to menu
+                $("#recipe-glyph"+index).append("<a class=\"btn btn-default\" href='/menu/"+json.recipe_ids[index]+"/yourmenu/'><span class=\"glyphicon glyphicon-plus\"></span></a>");
+
+                
+                $("#first-row"+index).append("</div>");
                 $("#recipe").append("</div>");
 
                 $("#recipe").append("<div class = \"row\" id= \"second-row"+index+"\">");
@@ -110,7 +118,6 @@ function create_post() {
                 $( '[id="'+secondrow+'"]' ).slideToggle();
             });
             
-            //console.log("success"); // another sanity check
         },
 
         // handle a non-successful response

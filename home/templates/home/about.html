@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
     
-    <link rel="stylesheet" href="{% static 'addrecipe/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'addrecipe/main.css' %}">
+    <link rel="stylesheet" href="{% static 'home/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'home/main.css' %}">
 </head>
 <body>
     <br/>
@@ -13,46 +13,27 @@
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
       <div class="navbar-header">
-            <a class="navbar-brand" href="#">CoopFood</a>
+            <a class="navbar-brand" href="{% url 'home:home_view' %}">CoopFood</a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                  <li class="active"><a href="{% url 'addrecipe:about' %}">About</a></li>
+                  <li class="active"><a href="{% url 'home:about' %}">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                   <li><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
-                  <li><a href="#">Search</a></li>
+                  <li><a href="{% url 'search:search' %}">Search</a></li>
                   <li><a href="#">Help</a></li>
             </ul>
       </div>
   </div>
 </nav>
-    <!--
-    <div class="nav">
-          <div class="container">
-            <div class ="row">
-                <div class= "col-md-12">
-                    <ul class = "pull-left">
-                      <li><a href="#">Home</a></li>
-                      <li><a href="{% url 'addrecipe:about' %}">About</a></li>
-                    </ul>
-                    <ul class = "pull-right">
-                      <li><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
-                      <li><a href="#">Search</a></li>
-                      <li><a href="#">Help</a></li>
-                    </ul>
-                </div>
-            </div>
-          </div>
-    </div>-->
-    
     <!-- Header -->
     <div class="formsetup">
         <div class= "container">
             <div class ="row">
                 <div class= "col-md-12" align = "center">
-                     <img src="{% static 'addrecipe/images/kale.png' %}" alt="Kale" style="width:75px;height:75px">
+                     <img src="{% static 'home/images/kale.png' %}" alt="Kale" style="width:75px;height:75px">
                     CoopFood
                 </div>
             </div>
@@ -62,7 +43,8 @@
                 allow head cooks in OSCA to search for recipes by main or excess ingredient (for example the co-op just has a ton of Swiss chard no one used)
                 with or without dietary restrictions.</p>
                 <p>Currently the implemented features are:<br/>
-                Add Recipe
+                <li>Add Recipe </li>
+                <li>Search</li>
                 </p>
                 
                 <br/>

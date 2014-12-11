@@ -1,0 +1,49 @@
+
+
+body{
+    background-color: #197519;
+}
+
+.navbar-default {
+    background-color: #D2E6C9;
+    border-width: 3px;
+    border-color: #006600;
+    margin: 0px;
+}
+
+
+/*.formsetup .container .row .col-md-12{
+    padding: 20px;
+    background-color: #006600;
+    font-size: 48px;  
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+    color : #8B9;
+    
+}*/
+
+.jumbotron {
+  background-image:url('http://3.bp.blogspot.com/_l_YnGZgJ0b0/TIwHpWxLBCI/AAAAAAAAAF0/XVv27F5reGk/s1600/farmers-mkt-haul.jpg');
+  height: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: auto;
+}
+.jumbotron .container {
+  position: relative;
+  top:100px;
+  color: #cfcfcf;
+}
+
+.jumbotron .container p{
+    color: #005C00;    
+}
+
+.medium-section{
+    background-color: #cfcfcf;
+
+}
+.medium-section h3{
+    color: #393c3d;
+    font-size: 30px;
+}

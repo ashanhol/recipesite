@@ -1,0 +1,32 @@
+
+body{
+    background-color: #197519;
+}
+.navbar-default {
+    background-color: #D2E6C9;
+    border-width: 3px;
+    border-color: #006600;
+}
+
+.formsetup .container .row .col-md-12{
+    padding: 20px;
+    background-color: #006600;
+    font-size: 48px;  
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+    color : #8B9;
+    
+}
+
+.formsetup .container {
+    background-color: #FFAD33;
+    font-family: 'Helvetica', sans-serif;
+    border-style: solid;
+    border-width: 8px;
+    border-color: #006600;
+}
+
+
+footer { 
+    display: block;
+}

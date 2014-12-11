@@ -1,12 +1,11 @@
 #!/usr/bin/python
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.utils import timezone
 
 import json
-from django.http import HttpResponse
 from django.core import serializers
 
 
@@ -54,8 +53,6 @@ def search(request):
                 results = Recipe.objects.all().filter(or_query)
             elif request.POST.get('searchtype') == 'INGR':
                 results = Recipe.objects.filter(or_query)
-             #   results = Ingredient.objects.all().filter(or_query)
-
 
             
             if request.POST.get('vegetarian') == 'true':
@@ -72,6 +69,7 @@ def search(request):
             
             #separate each recipe into its components to pass into JSON
             individual_recipes = [result.recipe_name for result in results]
+            individual_recipe_ids = [result.id for result in results]
             ingredients = []
             instructions = []
             for result in results:
@@ -93,6 +91,7 @@ def search(request):
             #instructions = serializers.serialize("json", instructions)
 
             response_data['recipe_names'] = individual_recipes
+            response_data['recipe_ids'] = individual_recipe_ids
             response_data['recipe_ing'] = ingredients
             response_data['recipe_inst'] = instructions
             

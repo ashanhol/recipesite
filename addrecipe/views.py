@@ -20,10 +20,6 @@ def thank_view(request, recipe_id):
     return render(request, 'addrecipe/thank.html', {'recipe': recipe})
 
 
-def about_view(request):
-    return render(request, 'addrecipe/about.html')
-
-
 def add_recipe(request):
     # if this is a POST request we need to process the form data
     ingredientformset = formset_factory(AddIngredientForm, can_delete = True)
