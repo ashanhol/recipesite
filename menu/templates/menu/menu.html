@@ -19,7 +19,7 @@
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
       <div class="navbar-header">
-            <a class="navbar-brand" href="#">CoopFood</a>
+            <a class="navbar-brand" href="{% url 'home:home_view' %}">CoopFood</a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -28,7 +28,8 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                   <li><a href="{% url 'addrecipe:add_recipe' %}">Add</a></li>
-                  <li class = "active"><a href="{% url 'search:search' %}">Search</a></li>
+                  <li><a href="{% url 'search:search' %}">Search</a></li>
+                  <li class = "active"><a href="{% url 'menu:get_menu' %}">Menu</a></li>                  
                   <li><a href="#">Help</a></li>
             </ul>
       </div>
@@ -59,8 +60,8 @@
                             <a class="btn btn-default" href="{% url 'menu:rem_menu' item.product.id %}"><span class="glyphicon glyphicon-minus"></span></a>
                             
                         </div>
-                    <!-- edit button goes here -->
-                    <!-- remove from list button goes here -->
+                    <!-- todo: edit button goes here -->
+                    <!-- todo: remove from list button goes here -->
                     </div>
                     <div class = "row">
                         <div class= "col-md-4">
@@ -97,7 +98,7 @@
             <footer>
                 <small>
                     <center>
-                        <p>Last Updated 11/07/2014</p>
+                        <p>Last Updated 12/12/2014</p>
                         <p>For assistance please contact <a href="mailto:admin@coopfood.com">admin@coopfood.com</a></p>
                     </center>
                 </small>

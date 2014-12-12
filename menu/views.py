@@ -1,11 +1,9 @@
-from django.shortcuts import get_object_or_404, render, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 
-import json
 from django.http import HttpResponse
-from django.core import serializers
 
 from addrecipe.models import Recipe, Ingredient, Instruction
 from menu.create_menu import Menus
